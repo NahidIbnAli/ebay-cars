@@ -20,7 +20,7 @@ const AdvertisedItem = ({ advertisedItem }) => {
         <h2 className="text-xl font-medium mb-1">{name}</h2>
         <p className="text-gray-600">Original Price : ${originalPrice}</p>
         <p className="text-gray-600">Used : {used}</p>
-        <p className="text-gray-600">Seller : {sellerName}</p>
+        <p className="text-gray-600">Location : {location}</p>
         <div className="card-actions justify-between items-center mb-2">
           <p className="font-bold text-xl">Price : ${resalePrice}</p>
           <button className="btn btn-primary text-white xl:px-10">
@@ -29,7 +29,7 @@ const AdvertisedItem = ({ advertisedItem }) => {
         </div>
         <hr className="mt-5 mb-3" />
         <div className="flex justify-between text-gray-600">
-          <p>Location : {location}</p>
+          <p className="text-gray-600">Seller : {sellerName}</p>
           <p>{time}</p>
         </div>
       </div>
