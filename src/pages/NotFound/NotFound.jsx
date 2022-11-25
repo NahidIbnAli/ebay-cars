@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import image from "../../assets/404 Error.png";
 
 const NotFound = () => {
@@ -8,6 +9,9 @@ const NotFound = () => {
         This route not found
       </h2>
       <img src={image} className="w-3/4 md:w-2/3 lg:w-3/6 xl:w-5/12" alt="" />
+      <Link to="/">
+        <button className="btn btn-secondary text-white">Go Back</button>
+      </Link>
     </div>
   );
 };
