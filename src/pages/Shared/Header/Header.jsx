@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider";
+import { MdSpaceDashboard } from "react-icons/md";
 import logo from "../../../assets/logo.png";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
+
   const menuItems = (
     <React.Fragment>
       <li>
@@ -11,14 +21,39 @@ const Header = () => {
       <li>
         <Link to="/blog">Blog</Link>
       </li>
-      <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
-      <li>
-        <Link to="/login" className="bg-primary text-white rounded-lg">
-          Login
-        </Link>
-      </li>
+      {user?.uid ? (
+        <>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          {user?.photoURL && (
+            <Link>
+              <div className="avatar">
+                <div className="w-10 rounded-full">
+                  <img src={user?.photoURL} alt="" />
+                </div>
+              </div>
+            </Link>
+          )}
+          <button
+            onClick={handleSignOut}
+            className="btn btn-primary text-white"
+          >
+            Sign Out
+          </button>
+          <li>
+            <label htmlFor="dashboardDrawer" className="lg:hidden">
+              <MdSpaceDashboard className="text-accent text-2xl mx-auto"></MdSpaceDashboard>
+            </label>
+          </li>
+        </>
+      ) : (
+        <li>
+          <Link to="/login" className="bg-primary text-white rounded-lg">
+            Login
+          </Link>
+        </li>
+      )}
     </React.Fragment>
   );
   return (

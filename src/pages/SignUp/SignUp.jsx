@@ -1,12 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
   const { signUp, signInWithGoogle, updateUser } = useContext(AuthContext);
+  const [createdUserEmail, setCreatedUserEmail] = useState("");
+  const [token] = useToken(createdUserEmail);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   const {
     register,
@@ -22,9 +31,9 @@ const SignUp = () => {
         };
         updateUser(userInfo)
           .then(() => {
+            saveUser(data.name, data.email, data.accountType);
             event.target.reset();
             toast.success("User Created Successfully");
-            navigate("/");
           })
           .catch((error) => console.error(error));
       })
@@ -35,10 +44,26 @@ const SignUp = () => {
       });
   };
 
+  const saveUser = (name, email, accountType) => {
+    const user = { name, email, accountType };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCreatedUserEmail(email);
+      })
+      .catch((error) => console.error(error));
+  };
+
   const handleSignInWithGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
+        saveUser(result.user.displayName, result.user.email);
       })
       .catch((error) => console.error(error));
   };
@@ -74,7 +99,7 @@ const SignUp = () => {
               <span className="text-red-600">{errors.email.message}</span>
             )}
           </div>
-          <div className="form-control w-full mb-3">
+          <div className="form-control w-full mb-2">
             <label className="label pb-0">
               <span className="label-text text-base">Password</span>
             </label>
@@ -96,6 +121,23 @@ const SignUp = () => {
             />
             {errors.password && (
               <span className="text-red-600">{errors.password.message}</span>
+            )}
+          </div>
+          <div className="form-control w-full mb-3">
+            <label className="label pb-0">
+              <span className="label-text text-base">Account Type</span>
+            </label>
+            <select
+              {...register("accountType", {
+                required: "Account type is Required",
+              })}
+              className="select select-bordered"
+            >
+              <option value="Buyer">Buyer</option>
+              <option value="Seller">Seller</option>
+            </select>
+            {errors.accountType && (
+              <span className="text-red-600">{errors.accountType.message}</span>
             )}
           </div>
           <button className="btn btn-primary text-white w-full" type="submit">

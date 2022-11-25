@@ -1,15 +1,26 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const { signIn, signInWithGoogle, forgotPassword } = useContext(AuthContext);
   const [forgotPass, setForgotPass] = useState(null);
   const emailForm = useRef(null);
+  const [userEmail, setUserEmail] = useState("");
+  const [token] = useToken(userEmail);
 
+  const location = useLocation();
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (token) {
+      navigate(from, { replace: true });
+    }
+  });
 
   const {
     register,
@@ -21,7 +32,7 @@ const Login = () => {
     signIn(data.email, data.password)
       .then((result) => {
         event.target.reset();
-        navigate("/");
+        setUserEmail(data.email);
       })
       .catch((error) => {
         if (error.message) {
@@ -32,7 +43,9 @@ const Login = () => {
 
   const handleSignInWithGoogle = () => {
     signInWithGoogle()
-      .then((result) => {})
+      .then((result) => {
+        setUserEmail(result.user.email);
+      })
       .catch((error) => console.error(error));
   };
 
