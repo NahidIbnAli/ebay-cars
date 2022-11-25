@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA8y4hrQ9bs7kLzpKUL_xrzcOa4JE8zxGY",
-  authDomain: "ebay-cars.firebaseapp.com",
-  projectId: "ebay-cars",
-  storageBucket: "ebay-cars.appspot.com",
-  messagingSenderId: "314226381611",
-  appId: "1:314226381611:web:a8a18ca651ada9fe186b6e",
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
 };
 
 // Initialize Firebase
