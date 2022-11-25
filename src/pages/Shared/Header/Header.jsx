@@ -12,7 +12,7 @@ const Header = () => {
         <Link to="/dashboard">Dashboard</Link>
       </li>
       <li>
-        <Link to="/login" className="border rounded-lg">
+        <Link to="/login" className="bg-primary text-white rounded-lg">
           Login
         </Link>
       </li>

@@ -6,6 +6,7 @@ import logo from "../../../assets/logo.png";
 const Footer = () => {
   return (
     <div>
+      <hr />
       <footer className="footer container mx-auto justify-between py-10 px-6 text-neutral">
         <div>
           <Link className="link link-hover">
