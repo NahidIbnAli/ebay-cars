@@ -11,21 +11,17 @@ const Footer = () => {
           <Link className="link link-hover">
             <img className="w-20" src={logo} alt="" />
           </Link>
-          <p className="md:w-3/4">
-            eBay Cars is the leading search <br></br> car venture in Bangladesh,{" "}
-            that <br></br> helps users buy cars that are right for them.
+          <p className="">
+            eBay Cars is is the most <br></br> trusted way of buying
+            <br></br> and selling used cars.
           </p>
         </div>
         <div>
           <span className="footer-title">Quick Links</span>
           <Link className="link link-hover">Home</Link>
-          <Link className="link link-hover">Dashboard</Link>
+          <Link className="link link-hover">Blog</Link>
           <Link className="link link-hover">Login</Link>
           <Link className="link link-hover">Sign Up</Link>
-        </div>
-        <div>
-          <span className="footer-title">Resources</span>
-          <Link className="link link-hover">Blog</Link>
         </div>
         <div>
           <span className="footer-title">Contact us</span>
