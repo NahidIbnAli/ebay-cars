@@ -7,12 +7,12 @@ const Testimonial = ({ testimonial }) => {
       <div className="card-body text-center gap-1">
         <div className="avatar justify-center">
           <div className="w-20 mask mask-squircle">
-            <img src={avatar} />
+            <img src={avatar} alt="" />
           </div>
         </div>
         <h2 className="text-xl font-medium">{name}</h2>
-        <small className="text-gray-500">{location}</small>
-        <p className="text-gray-500">{review}</p>
+        <small className="text-gray-600">{location}</small>
+        <p className="text-gray-600">{review}</p>
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ const Testimonials = () => {
   return (
     <div className="pb-10 pt-16 px-7">
       <div className="container mx-auto">
-        <h2 className="text-4xl font-bold mb-6 text-center">
+        <h2 className="text-4xl font-bold pb-10 text-center">
           What People Says
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
