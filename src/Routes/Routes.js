@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
@@ -5,6 +6,7 @@ import Blog from "../pages/Blog/Blog";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
+import AllAdvertisedItems from "../pages/Shared/AllAdvertisedItems/AllAdvertisedItems";
 import ErrorElement from "../pages/Shared/ErrorElement/ErrorElement";
 import SignUp from "../pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
@@ -30,6 +32,12 @@ export const routes = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/category/:name",
+        loader: async ({ params }) =>
+          fetch(`http://localhost:5000/category/${params.name}`),
+        element: <AllAdvertisedItems></AllAdvertisedItems>,
       },
     ],
   },
