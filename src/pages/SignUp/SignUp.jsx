@@ -73,7 +73,12 @@ const SignUp = () => {
   const handleSignInWithGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        saveUser(result.user.displayName, result.user.email);
+        const account = { accountType: "Buyer" };
+        saveUser(
+          result.user.displayName,
+          result.user.email,
+          account.accountType
+        );
       })
       .catch((error) => console.error(error));
   };
@@ -135,7 +140,9 @@ const SignUp = () => {
           </div>
           <div className="form-control w-full mb-3">
             <label className="label pb-0">
-              <span className="label-text text-base">Account Type</span>
+              <span className="label-text text-base">
+                What type of account do you want to create?
+              </span>
             </label>
             <select
               {...register("accountType", {

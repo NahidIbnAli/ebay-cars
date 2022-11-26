@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
@@ -37,7 +36,11 @@ export const routes = createBrowserRouter([
         path: "/category/:name",
         loader: async ({ params }) =>
           fetch(`http://localhost:5000/category/${params.name}`),
-        element: <AllAdvertisedItems></AllAdvertisedItems>,
+        element: (
+          <PrivateRoute>
+            <AllAdvertisedItems></AllAdvertisedItems>
+          </PrivateRoute>
+        ),
       },
     ],
   },

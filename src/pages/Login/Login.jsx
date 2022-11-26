@@ -103,7 +103,7 @@ const Login = () => {
               <span className="text-red-600">{errors.password.message}</span>
             )}
             <label
-              htmlFor="my-modal-3"
+              htmlFor="forgotPasswordModal"
               onClick={() => setForgotPass(true)}
               className="label pt-1"
             >
@@ -138,11 +138,15 @@ const Login = () => {
       {/* forgot password modal */}
       {forgotPass && (
         <>
-          <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+          <input
+            type="checkbox"
+            id="forgotPasswordModal"
+            className="modal-toggle"
+          />
           <div className="modal">
             <div className="modal-box relative">
               <label
-                htmlFor="my-modal-3"
+                htmlFor="forgotPasswordModal"
                 className="btn btn-sm btn-circle btn-primary text-white absolute right-2 top-2"
               >
                 ✕
