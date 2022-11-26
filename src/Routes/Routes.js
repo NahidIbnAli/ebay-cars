@@ -1,15 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
+import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
 import Blog from "../pages/Blog/Blog";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
+import ErrorElement from "../pages/Shared/ErrorElement/ErrorElement";
 import SignUp from "../pages/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorElement></ErrorElement>,
     children: [
       {
         path: "/",
@@ -26,6 +30,20 @@ export const routes = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorElement></ErrorElement>,
+    children: [
+      {
+        path: "/dashboard",
       },
     ],
   },
