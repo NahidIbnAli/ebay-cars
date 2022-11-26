@@ -10,9 +10,11 @@ const SignUp = () => {
   const [createdUserEmail, setCreatedUserEmail] = useState("");
   const [token] = useToken(createdUserEmail);
   const navigate = useNavigate();
+  const [signUpLoading, setSignUpLoading] = useState(false);
 
   useEffect(() => {
     if (token) {
+      setSignUpLoading(false);
       navigate("/");
     }
   }, [token, navigate]);
@@ -23,7 +25,8 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const hanldeSignUp = (data, event) => {
+  const handleSignUp = (data, event) => {
+    setSignUpLoading(true);
     signUp(data.email, data.password)
       .then((result) => {
         const userInfo = {
@@ -35,10 +38,14 @@ const SignUp = () => {
             event.target.reset();
             toast.success("User Created Successfully");
           })
-          .catch((error) => console.error(error));
+          .catch((error) => {
+            setSignUpLoading(false);
+            console.error(error);
+          });
       })
       .catch((error) => {
         if (error.message) {
+          setSignUpLoading(false);
           toast.error("email already in use");
         }
       });
@@ -57,7 +64,10 @@ const SignUp = () => {
       .then((data) => {
         setCreatedUserEmail(email);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setSignUpLoading(false);
+        console.error(error);
+      });
   };
 
   const handleSignInWithGoogle = () => {
@@ -72,7 +82,7 @@ const SignUp = () => {
     <div className="lg:min-h-screen flex justify-center items-center p-7 lg:py-0">
       <div className="w-full max-w-md p-8 rounded-xl border">
         <h3 className="text-2xl text-center font-medium mb-8">Sign Up</h3>
-        <form onSubmit={handleSubmit(hanldeSignUp)}>
+        <form onSubmit={handleSubmit(handleSignUp)}>
           <div className="form-control w-full mb-2">
             <label className="label pb-0">
               <span className="label-text text-base">Name</span>
@@ -140,7 +150,12 @@ const SignUp = () => {
               <span className="text-red-600">{errors.accountType.message}</span>
             )}
           </div>
-          <button className="btn btn-primary text-white w-full" type="submit">
+          <button
+            className={`btn btn-primary text-white w-full ${
+              signUpLoading && "loading"
+            }`}
+            type="submit"
+          >
             Sign Up
           </button>
         </form>

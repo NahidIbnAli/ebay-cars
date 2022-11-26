@@ -27,12 +27,8 @@ const Header = () => {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           {user?.photoURL && (
-            <Link>
-              <div className="avatar">
-                <div className="w-10 rounded-full">
-                  <img src={user?.photoURL} alt="" />
-                </div>
-              </div>
+            <Link className="mx-auto mb-2 lg:mb-0 lg:mx-4">
+              <img src={user?.photoURL} alt="" className="w-10 rounded-full" />
             </Link>
           )}
           <button
@@ -43,7 +39,7 @@ const Header = () => {
           </button>
           <li>
             <label htmlFor="dashboardDrawer" className="lg:hidden">
-              <MdSpaceDashboard className="text-accent text-2xl mx-auto"></MdSpaceDashboard>
+              <MdSpaceDashboard className=" text-2xl mx-auto"></MdSpaceDashboard>
             </label>
           </li>
         </>
@@ -88,7 +84,9 @@ const Header = () => {
             {menuItems}
           </ul>
         </div>
-        <ul className="menu menu-horizontal p-0 hidden lg:flex">{menuItems}</ul>
+        <ul className="menu menu-horizontal p-0 hidden lg:flex items-center">
+          {menuItems}
+        </ul>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import useToken from "../../hooks/useToken";
 const Login = () => {
   const { signIn, signInWithGoogle, forgotPassword } = useContext(AuthContext);
   const [forgotPass, setForgotPass] = useState(null);
+  const [loginLoading, setLoginLoading] = useState(false);
   const emailForm = useRef(null);
   const [userEmail, setUserEmail] = useState("");
   const [token] = useToken(userEmail);
@@ -18,9 +19,10 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
+      setLoginLoading(false);
       navigate(from, { replace: true });
     }
-  });
+  }, [token, navigate, from]);
 
   const {
     register,
@@ -29,12 +31,14 @@ const Login = () => {
   } = useForm();
 
   const handleLogin = (data, event) => {
+    setLoginLoading(true);
     signIn(data.email, data.password)
       .then((result) => {
         event.target.reset();
         setUserEmail(data.email);
       })
       .catch((error) => {
+        setLoginLoading(false);
         if (error.message) {
           toast.error("your email or password is wrong");
         }
@@ -108,7 +112,12 @@ const Login = () => {
               </span>
             </label>
           </div>
-          <button className="btn btn-primary text-white w-full" type="submit">
+          <button
+            className={`btn btn-primary text-white w-full ${
+              loginLoading && "loading"
+            }`}
+            type="submit"
+          >
             Login
           </button>
         </form>
