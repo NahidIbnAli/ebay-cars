@@ -36,7 +36,7 @@ const Login = () => {
       .then((result) => {
         event.target.reset();
         setUserEmail(data.email);
-        toast.success("Successfully logged in!");
+        toast.success("Successfully Logged In!");
       })
       .catch((error) => {
         setLoginLoading(false);

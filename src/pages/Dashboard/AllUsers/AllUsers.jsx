@@ -3,6 +3,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import SmallSpinner from "../../../components/SmallSpinner";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import swal from "sweetalert";
 
 const AllUsers = () => {
   const {
@@ -26,21 +27,59 @@ const AllUsers = () => {
     return <SmallSpinner></SmallSpinner>;
   }
 
-  const handleMakeAdmin = (id) => {
-    fetch(`http://localhost:5000/users/admin/${id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          return toast.error("You don't have admin role");
-        }
-        refetch();
-        toast.success("Make admin successful");
-      });
+  const handleMakeAdmin = (id, name) => {
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure you want to make admin this user?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(`http://localhost:5000/users/admin/${id}`, {
+          method: "PUT",
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.message) {
+              return toast.error("You don't have admin role");
+            }
+            swal("Make admin successful", {
+              icon: "success",
+            });
+            refetch();
+          });
+      }
+    });
+  };
+
+  const handleRemoveUser = (id, name) => {
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure you want to delete this user?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(`http://localhost:5000/users/${id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            swal(`${name} has been Removed!`, {
+              icon: "success",
+            });
+            refetch();
+          });
+      }
+    });
   };
 
   return (
@@ -80,7 +119,7 @@ const AllUsers = () => {
                 <td>
                   {user?.role !== "Admin" && (
                     <button
-                      onClick={() => handleMakeAdmin(user._id)}
+                      onClick={() => handleMakeAdmin(user._id, user.name)}
                       className="btn btn-sm btn-secondary text-white normal-case"
                     >
                       Make Admin
@@ -88,8 +127,11 @@ const AllUsers = () => {
                   )}
                 </td>
                 <td>
-                  <button className="btn btn-sm btn-error text-error bg-transparent hover:text-white normal-case">
-                    <RiDeleteBin6Line></RiDeleteBin6Line>{" "}
+                  <button
+                    onClick={() => handleRemoveUser(user._id, user.name)}
+                    className="btn btn-sm btn-error text-error bg-transparent hover:text-white normal-case"
+                  >
+                    <RiDeleteBin6Line></RiDeleteBin6Line>
                     <span className="ml-1">Delete</span>
                   </button>
                 </td>
