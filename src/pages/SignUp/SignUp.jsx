@@ -34,7 +34,7 @@ const SignUp = () => {
         };
         updateUser(userInfo)
           .then(() => {
-            saveUser(data.name, data.email, data.accountType);
+            saveUser(data.name, data.email, data.role);
             event.target.reset();
             toast.success("User Created Successfully");
           })
@@ -46,13 +46,13 @@ const SignUp = () => {
       .catch((error) => {
         if (error.message) {
           setSignUpLoading(false);
-          toast.error("email already in use");
+          toast.error("email already exists");
         }
       });
   };
 
-  const saveUser = (name, email, accountType) => {
-    const user = { name, email, accountType };
+  const saveUser = (name, email, role) => {
+    const user = { name, email, role };
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
@@ -73,12 +73,8 @@ const SignUp = () => {
   const handleSignInWithGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        const account = { accountType: "Buyer" };
-        saveUser(
-          result.user.displayName,
-          result.user.email,
-          account.accountType
-        );
+        const account = { role: "Buyer" };
+        saveUser(result.user.displayName, result.user.email, account.role);
       })
       .catch((error) => console.error(error));
   };
@@ -145,7 +141,7 @@ const SignUp = () => {
               </span>
             </label>
             <select
-              {...register("accountType", {
+              {...register("role", {
                 required: "Account type is Required",
               })}
               className="select select-bordered"
@@ -153,8 +149,8 @@ const SignUp = () => {
               <option value="Buyer">Buyer</option>
               <option value="Seller">Seller</option>
             </select>
-            {errors.accountType && (
-              <span className="text-red-600">{errors.accountType.message}</span>
+            {errors.role && (
+              <span className="text-red-600">{errors.role.message}</span>
             )}
           </div>
           <button

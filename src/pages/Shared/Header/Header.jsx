@@ -27,7 +27,7 @@ const Header = () => {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           {user?.photoURL && (
-            <Link className="mx-auto mb-2 lg:mb-0 lg:mx-4">
+            <Link className="hidden lg:inline lg:mr-4 lg:ml-1">
               <img src={user?.photoURL} alt="" className="w-10 rounded-full" />
             </Link>
           )}
@@ -37,11 +37,6 @@ const Header = () => {
           >
             Sign Out
           </button>
-          <li>
-            <label htmlFor="dashboardDrawer" className="lg:hidden">
-              <MdSpaceDashboard className=" text-2xl mx-auto"></MdSpaceDashboard>
-            </label>
-          </li>
         </>
       ) : (
         <li>
@@ -53,9 +48,12 @@ const Header = () => {
     </React.Fragment>
   );
   return (
-    <div className="container mx-auto navbar bg-base-100">
+    <div className="container  mx-auto navbar bg-base-100">
       <div className="navbar-start">
-        <Link to="/" className="btn btn-ghost normal-case text-xl text-primary">
+        <Link
+          to="/"
+          className="btn btn-ghost normal-case text-xl font-bold text-neutral"
+        >
           <img className="w-10" src={logo} alt="" />
           <span className="ml-2">eBay Cars</span>
         </Link>
