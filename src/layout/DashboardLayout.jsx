@@ -8,10 +8,12 @@ import { Link, Outlet } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { AuthContext } from "../contexts/AuthProvider";
 import useAdmin from "../hooks/useAdmin";
+import useSeller from "../hooks/useSeller";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
+  const [isSeller] = useSeller(user?.email);
 
   return (
     <div>
@@ -66,22 +68,26 @@ const DashboardLayout = () => {
                 </p>
               </Link>
             </li>
-            <li>
-              <Link to="/dashboard/myproducts">
-                <p className="flex items-center gap-2">
-                  <IoMdCube></IoMdCube>
-                  <span>My Products</span>
-                </p>
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard/addproduct">
-                <p className="flex items-center gap-1">
-                  <AiFillFileAdd></AiFillFileAdd>
-                  <span>Add Product</span>
-                </p>
-              </Link>
-            </li>
+            {isSeller && (
+              <>
+                <li>
+                  <Link to="/dashboard/myproducts">
+                    <p className="flex items-center gap-2">
+                      <IoMdCube></IoMdCube>
+                      <span>My Products</span>
+                    </p>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/addproduct">
+                    <p className="flex items-center gap-1">
+                      <AiFillFileAdd></AiFillFileAdd>
+                      <span>Add Product</span>
+                    </p>
+                  </Link>
+                </li>
+              </>
+            )}
             <Link to="/" className="mx-auto mt-14 lg:hidden">
               <button className="btn btn-sm btn-primary text-white normal-case">
                 Back to Home
