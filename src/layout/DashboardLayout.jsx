@@ -3,6 +3,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { GoListUnordered } from "react-icons/go";
 import { AiFillFileAdd } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
+import { IoMdCube } from "react-icons/io";
 import { Link, Outlet } from "react-router-dom";
 import logo from "../assets/logo.png";
 
@@ -43,7 +44,7 @@ const DashboardLayout = () => {
           <label htmlFor="dashboardDrawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-100 lg:bg-transparent text-base-content font-semibold">
             <li>
-              <Link>
+              <Link to="/dashboard/users">
                 <p className="flex items-center gap-1">
                   <FaUserFriends></FaUserFriends>
                   <span>Users</span>
@@ -51,7 +52,7 @@ const DashboardLayout = () => {
               </Link>
             </li>
             <li>
-              <Link>
+              <Link to="/dashboard/myorders">
                 <p className="flex items-center gap-1">
                   <GoListUnordered></GoListUnordered>
                   <span>My Orders</span>
@@ -59,7 +60,15 @@ const DashboardLayout = () => {
               </Link>
             </li>
             <li>
-              <Link>
+              <Link to="/dashboard/myproducts">
+                <p className="flex items-center gap-2">
+                  <IoMdCube></IoMdCube>
+                  <span>My Products</span>
+                </p>
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/addproduct">
                 <p className="flex items-center gap-1">
                   <AiFillFileAdd></AiFillFileAdd>
                   <span>Add Product</span>

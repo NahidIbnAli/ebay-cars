@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
 import Blog from "../pages/Blog/Blog";
+import AddProduct from "../pages/Dashboard/AddProduct/AddProduct";
+import MyOrders from "../pages/Dashboard/MyOrders/MyOrders";
+import MyProducts from "../pages/Dashboard/MyProducts/MyProducts";
 import Users from "../pages/Dashboard/Users/Users";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
@@ -9,6 +12,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import AllAdvertisedItems from "../pages/Shared/AllAdvertisedItems/AllAdvertisedItems";
 import ErrorElement from "../pages/Shared/ErrorElement/ErrorElement";
 import SignUp from "../pages/SignUp/SignUp";
+import AdminRoute from "./AdminRoute/AdminRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 export const routes = createBrowserRouter([
@@ -56,7 +60,35 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <Users></Users>,
+        element: (
+          <PrivateRoute>
+            <MyOrders></MyOrders>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/users",
+        element: (
+          <AdminRoute>
+            <Users></Users>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addproduct",
+        element: (
+          <PrivateRoute>
+            <AddProduct></AddProduct>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/myproducts",
+        element: (
+          <PrivateRoute>
+            <MyProducts></MyProducts>
+          </PrivateRoute>
+        ),
       },
     ],
   },
