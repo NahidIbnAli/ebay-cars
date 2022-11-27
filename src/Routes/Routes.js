@@ -3,9 +3,9 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
 import Blog from "../pages/Blog/Blog";
 import AddProduct from "../pages/Dashboard/AddProduct/AddProduct";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import MyOrders from "../pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../pages/Dashboard/MyProducts/MyProducts";
-import Users from "../pages/Dashboard/Users/Users";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
@@ -70,7 +70,7 @@ export const routes = createBrowserRouter([
         path: "/dashboard/users",
         element: (
           <AdminRoute>
-            <Users></Users>
+            <AllUsers></AllUsers>
           </AdminRoute>
         ),
       },

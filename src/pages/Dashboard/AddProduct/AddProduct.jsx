@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import Loading from "../../../components/Loading";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
@@ -77,7 +78,12 @@ const AddProduct = () => {
             .then((res) => res.json())
             .then((data) => {
               setBtnLoading(false);
-              toast.success("Your Product has been added successfully");
+              swal({
+                title: "Successfully Added",
+                text: "Your Product has been added successfully",
+                icon: "success",
+                button: "Ok",
+              });
               navigate("/dashboard/myproducts");
             });
         }

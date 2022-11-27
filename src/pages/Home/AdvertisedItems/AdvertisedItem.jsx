@@ -17,7 +17,7 @@ const AdvertisedItem = ({ advertisedItem, setAdvertisedItem }) => {
 
   return (
     <div className="card bg-base-100 border">
-      <figure>
+      <figure style={{ height: "300px" }}>
         <img src={image} alt="" />
       </figure>
       <div className="p-6">
