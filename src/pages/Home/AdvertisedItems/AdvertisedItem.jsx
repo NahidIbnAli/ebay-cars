@@ -26,7 +26,9 @@ const AdvertisedItem = ({ advertisedItem, setAdvertisedItem }) => {
           Original Price:{" "}
           <span className="text-primary font-medium">${originalPrice}</span>
         </p>
-        <p className="text-gray-600 mb-1">Used: {yearsOfUse}</p>
+        <p className="text-gray-600 mb-1">
+          Used: {yearsOfUse} {parseInt(yearsOfUse) > 1 ? "years" : "year"}
+        </p>
         <p className="text-gray-600 mb-1 flex items-center gap-1">
           <IoLocationSharp></IoLocationSharp> <span>{location}</span>
         </p>
