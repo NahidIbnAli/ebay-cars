@@ -21,7 +21,9 @@ const AddProduct = () => {
   const { data: carCategories = [], isLoading } = useQuery({
     queryKey: ["carCategories"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/carCategories`);
+      const res = await fetch(
+        `https://ebay-cars-server.vercel.app/carCategories`
+      );
       const data = await res.json();
       return data;
     },
@@ -66,7 +68,7 @@ const AddProduct = () => {
             email: user?.email,
             date,
           };
-          fetch("http://localhost:5000/products", {
+          fetch("https://ebay-cars-server.vercel.app/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",

@@ -17,7 +17,7 @@ const MyProducts = () => {
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products?email=${user?.email}`,
+        `https://ebay-cars-server.vercel.app/products?email=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -43,7 +43,7 @@ const MyProducts = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/products/${id}`, {
+        fetch(`https://ebay-cars-server.vercel.app/products/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -64,7 +64,7 @@ const MyProducts = () => {
 
   // post advertisement handler
   const handleAdvertise = (id) => {
-    fetch(`http://localhost:5000/advertisedItems?id=${id}`, {
+    fetch(`https://ebay-cars-server.vercel.app/advertisedItems?id=${id}`, {
       method: "POST",
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,

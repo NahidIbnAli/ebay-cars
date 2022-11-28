@@ -7,7 +7,9 @@ const Testimonials = () => {
   const { data: testimonials = [], isLoading } = useQuery({
     queryKey: ["testimonials"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/testimonials");
+      const res = await fetch(
+        "https://ebay-cars-server.vercel.app/testimonials"
+      );
       const data = await res.json();
       return data;
     },

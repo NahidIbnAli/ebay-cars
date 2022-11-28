@@ -7,7 +7,7 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/blogs").then((data) => {
+    axios.get("https://ebay-cars-server.vercel.app/blogs").then((data) => {
       setBlogs(data.data);
       setLoading(false);
     });

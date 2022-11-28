@@ -41,7 +41,7 @@ export const routes = createBrowserRouter([
       {
         path: "/category/:name",
         loader: async ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.name}`),
+          fetch(`https://ebay-cars-server.vercel.app/category/${params.name}`),
         element: (
           <PrivateRoute>
             <AllProducts></AllProducts>

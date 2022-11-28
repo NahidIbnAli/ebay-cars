@@ -14,11 +14,14 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users?role=Seller", {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      const res = await fetch(
+        "https://ebay-cars-server.vercel.app/users?role=Seller",
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
       const data = await res.json();
       return data;
     },
@@ -37,7 +40,7 @@ const AllSellers = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://ebay-cars-server.vercel.app/users/admin/${id}`, {
           method: "PUT",
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -59,7 +62,7 @@ const AllSellers = () => {
 
   // verify user handler
   const handleVerifyUser = (id, name) => {
-    fetch(`http://localhost:5000/users/verify/${id}`, {
+    fetch(`https://ebay-cars-server.vercel.app/users/verify/${id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -85,7 +88,7 @@ const AllSellers = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://ebay-cars-server.vercel.app/users/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,

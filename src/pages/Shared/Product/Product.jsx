@@ -18,7 +18,7 @@ const Product = ({ product, setProduct }) => {
   } = product;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users/verify/${email}`)
+    fetch(`https://ebay-cars-server.vercel.app/users/verify/${email}`)
       .then((res) => res.json())
       .then((data) => {
         setIsVerified(data.isVerified);
