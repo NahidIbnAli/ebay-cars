@@ -3,6 +3,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import SmallSpinner from "../../../components/SmallSpinner";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { GoVerified } from "react-icons/go";
 import swal from "sweetalert";
 
 const AllUsers = () => {
@@ -27,7 +28,8 @@ const AllUsers = () => {
     return <SmallSpinner></SmallSpinner>;
   }
 
-  const handleMakeAdmin = (id, name) => {
+  // make admin handler
+  const handleMakeAdmin = (id) => {
     swal({
       title: "Are you sure?",
       text: "Are you sure you want to make admin this user?",
@@ -56,6 +58,25 @@ const AllUsers = () => {
     });
   };
 
+  // verify user handler
+  const handleVerifyUser = (id, name) => {
+    fetch(`http://localhost:5000/users/verify/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error("You don't have admin role");
+        }
+        toast.success(`${name} has been verified`);
+        refetch();
+      });
+  };
+
+  // remove user handler
   const handleRemoveUser = (id, name) => {
     swal({
       title: "Are you sure?",
@@ -94,7 +115,8 @@ const AllUsers = () => {
               <th className="text-base normal-case">Email</th>
               <th className="text-base normal-case">Status</th>
               <th className="text-base normal-case">Admin</th>
-              <th className="text-base normal-case">Manage User</th>
+              <th className="text-base normal-case">Verify</th>
+              <th className="text-base normal-case">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -119,10 +141,25 @@ const AllUsers = () => {
                 <td>
                   {user?.role !== "Admin" && (
                     <button
-                      onClick={() => handleMakeAdmin(user._id, user.name)}
+                      onClick={() => handleMakeAdmin(user._id)}
                       className="btn btn-sm btn-secondary text-white normal-case"
                     >
                       Make Admin
+                    </button>
+                  )}
+                </td>
+                <td>
+                  {user?.verified ? (
+                    <div className="badge badge-lg">
+                      <span className="mr-1">Verified</span>{" "}
+                      <GoVerified></GoVerified>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => handleVerifyUser(user._id, user.name)}
+                      className="btn btn-sm btn-info text-white normal-case"
+                    >
+                      Verify Now
                     </button>
                   )}
                 </td>

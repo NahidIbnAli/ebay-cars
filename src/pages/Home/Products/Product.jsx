@@ -1,9 +1,9 @@
 import React from "react";
-import { HiBadgeCheck } from "react-icons/hi";
-import { IoLocationSharp } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
+import { GoVerified } from "react-icons/go";
+import { IoLocationSharp } from "react-icons/io5";
 
-const AdvertisedItem = ({ advertisedItem, setAdvertisedItem }) => {
+const Product = ({ product, setProduct }) => {
   const {
     name,
     image,
@@ -13,11 +13,11 @@ const AdvertisedItem = ({ advertisedItem, setAdvertisedItem }) => {
     date,
     yearsOfUse,
     sellerName,
-  } = advertisedItem;
+  } = product;
 
   return (
     <div className="card bg-base-100 border">
-      <figure style={{ height: "300px" }}>
+      <figure style={{ height: "290px" }}>
         <img src={image} alt="" />
       </figure>
       <div className="p-6">
@@ -35,7 +35,7 @@ const AdvertisedItem = ({ advertisedItem, setAdvertisedItem }) => {
         <div className="card-actions justify-between items-center mb-2">
           <p className="text-2xl text-primary font-bold">${resalePrice}</p>
           <label
-            onClick={() => setAdvertisedItem(advertisedItem)}
+            onClick={() => setProduct(product)}
             htmlFor="booking-modal"
             className="btn btn-primary text-white xl:px-10"
           >
@@ -46,7 +46,7 @@ const AdvertisedItem = ({ advertisedItem, setAdvertisedItem }) => {
         <div className="flex justify-between text-gray-600">
           <p className="text-gray-600 flex items-center gap-1">
             <AiOutlineUser></AiOutlineUser> <span>{sellerName}</span>
-            <HiBadgeCheck className="text-info text-lg"></HiBadgeCheck>
+            <GoVerified className="text-info"></GoVerified>
           </p>
           <p>{date}</p>
         </div>
@@ -55,4 +55,4 @@ const AdvertisedItem = ({ advertisedItem, setAdvertisedItem }) => {
   );
 };
 
-export default AdvertisedItem;
+export default Product;

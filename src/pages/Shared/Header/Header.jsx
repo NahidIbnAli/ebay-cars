@@ -2,9 +2,13 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import logo from "../../../assets/logo.png";
+import useAdmin from "../../../hooks/useAdmin";
+import useSeller from "../../../hooks/useSeller";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin(user?.email);
+  const [isSeller] = useSeller(user?.email);
 
   const handleSignOut = () => {
     logOut()
@@ -23,7 +27,17 @@ const Header = () => {
       {user?.uid ? (
         <>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link
+              to={
+                isAdmin
+                  ? "/dashboard/users"
+                  : isSeller
+                  ? "/dashboard/addproduct"
+                  : "/dashboard"
+              }
+            >
+              Dashboard
+            </Link>
           </li>
           {user?.photoURL && (
             <Link className="hidden lg:inline lg:mr-4 lg:ml-1">

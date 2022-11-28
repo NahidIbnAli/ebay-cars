@@ -17,7 +17,7 @@ const CarCategories = () => {
     return <Loading></Loading>;
   }
   return (
-    <div className="px-7">
+    <div className="pt-10 px-7">
       <div className="container max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold mb-6">Categories</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">

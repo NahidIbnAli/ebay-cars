@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import Loading from "../../../components/Loading";
@@ -51,7 +50,6 @@ const AddProduct = () => {
       .then((res) => res.json())
       .then((imageData) => {
         if (imageData.success) {
-          console.log("thik ache toh");
           const car = {
             name: data.name,
             image: imageData.data.url,
@@ -65,9 +63,10 @@ const AddProduct = () => {
             location: data.location,
             description: data.description,
             sellerName: user?.displayName,
+            email: user?.email,
             date,
           };
-          fetch("http://localhost:5000/advertisedItems", {
+          fetch("http://localhost:5000/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",

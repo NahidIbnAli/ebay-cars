@@ -67,8 +67,13 @@ const Login = () => {
   const handleSignInWithGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        const account = { role: "Buyer" };
-        saveUser(result.user.displayName, result.user.email, account.role);
+        const account = { role: "Buyer", verified: false };
+        saveUser(
+          result.user.displayName,
+          result.user.email,
+          account.role,
+          account.verified
+        );
       })
       .catch((error) => console.error(error));
   };

@@ -9,7 +9,7 @@ import MyProducts from "../pages/Dashboard/MyProducts/MyProducts";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
-import AllAdvertisedItems from "../pages/Shared/AllAdvertisedItems/AllAdvertisedItems";
+import AllProducts from "../pages/Shared/AllProducts/AllProducts";
 import ErrorElement from "../pages/Shared/ErrorElement/ErrorElement";
 import SignUp from "../pages/SignUp/SignUp";
 import AdminRoute from "./AdminRoute/AdminRoute";
@@ -43,7 +43,7 @@ export const routes = createBrowserRouter([
           fetch(`http://localhost:5000/category/${params.name}`),
         element: (
           <PrivateRoute>
-            <AllAdvertisedItems></AllAdvertisedItems>
+            <AllProducts></AllProducts>
           </PrivateRoute>
         ),
       },

@@ -3,9 +3,9 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
-const BookingModal = ({ advertisedItem, setAdvertisedItem, refetch }) => {
+const BookingModal = ({ product, setProduct, refetch }) => {
   const { user } = useContext(AuthContext);
-  const { name, resalePrice } = advertisedItem;
+  const { name, resalePrice } = product;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,12 +32,12 @@ const BookingModal = ({ advertisedItem, setAdvertisedItem, refetch }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          setAdvertisedItem(null);
+          setProduct(null);
           toast.success("Booking has been confirmed");
           refetch();
         } else {
           toast.error(data.message);
-          setAdvertisedItem(null);
+          setProduct(null);
         }
       })
       .catch((error) => console.error(error));
