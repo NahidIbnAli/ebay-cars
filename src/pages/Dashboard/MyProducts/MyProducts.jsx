@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import swal from "sweetalert";
 import SmallSpinner from "../../../components/SmallSpinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
@@ -31,8 +33,51 @@ const MyProducts = () => {
     return <SmallSpinner></SmallSpinner>;
   }
 
+  // remove product handler
   const handleRemoveProduct = (id) => {
-    console.log(id);
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure you want to delete this product?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(`http://localhost:5000/products/${id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            swal({
+              title: "Successfully Deleted!",
+              text: "Your product has been successfully Deleted",
+              icon: "success",
+            });
+            refetch();
+          });
+      }
+    });
+  };
+
+  // post advertisement handler
+  const handleAdvertise = (id) => {
+    fetch(`http://localhost:5000/advertisedItems?id=${id}`, {
+      method: "POST",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          return toast.error(data.message);
+        }
+        toast.success("Advertised product has been successfully added!");
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -74,7 +119,10 @@ const MyProducts = () => {
                 <td>{product.category}</td>
                 <td>${product.resalePrice}</td>
                 <td>
-                  <button className="btn btn-sm btn-primary text-white text-base normal-case mr-3">
+                  <button
+                    onClick={() => handleAdvertise(product._id)}
+                    className="btn btn-sm btn-primary text-white text-base normal-case mr-3"
+                  >
                     Advertise
                   </button>
                 </td>

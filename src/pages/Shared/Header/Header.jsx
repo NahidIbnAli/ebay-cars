@@ -30,7 +30,7 @@ const Header = () => {
             <Link
               to={
                 isAdmin
-                  ? "/dashboard/users"
+                  ? "/dashboard/allbuyers"
                   : isSeller
                   ? "/dashboard/addproduct"
                   : "/dashboard"

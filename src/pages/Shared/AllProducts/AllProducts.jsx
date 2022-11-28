@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import Product from "../../Home/Products/Product";
 import BookingModal from "../BookingModal/BookingModal";
+import Product from "../Product/Product";
 
 const AllProducts = () => {
   const allProducts = useLoaderData();

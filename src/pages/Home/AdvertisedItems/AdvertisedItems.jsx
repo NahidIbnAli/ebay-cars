@@ -2,19 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import Loading from "../../../components/Loading";
 import BookingModal from "../../Shared/BookingModal/BookingModal";
-import Product from "./Product";
+import Product from "../../Shared/Product/Product";
 
-const Products = () => {
+const AdvertisedItems = () => {
   const [product, setProduct] = useState(null);
 
   const {
-    data: products = [],
+    data: advertisedItems = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["advertisedItems"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/products`);
+      const res = await fetch(`http://localhost:5000/advertisedItems`);
       const data = await res.json();
       return data;
     },
@@ -25,12 +25,12 @@ const Products = () => {
   }
 
   return (
-    products?.length > 0 && (
+    advertisedItems?.length > 0 && (
       <div className="pt-10 px-7">
         <div className="container max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold mb-6">All Ads</h2>
+          <h2 className="text-4xl font-bold mb-6">Advertised Items</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {products.map((product) => (
+            {advertisedItems.map((product) => (
               <Product
                 key={product._id}
                 product={product}
@@ -51,4 +51,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default AdvertisedItems;

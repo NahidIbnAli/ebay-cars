@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MdSpaceDashboard } from "react-icons/md";
 import { GoListUnordered } from "react-icons/go";
 import { AiFillFileAdd } from "react-icons/ai";
-import { FaUserFriends } from "react-icons/fa";
+import { FaUserShield, FaUsers } from "react-icons/fa";
 import { IoMdCube } from "react-icons/io";
 import { Link, Outlet } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -51,14 +51,24 @@ const DashboardLayout = () => {
           <label htmlFor="dashboardDrawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-100 lg:bg-transparent text-base-content font-semibold">
             {isAdmin ? (
-              <li>
-                <Link to="/dashboard/users">
-                  <p className="flex items-center gap-1">
-                    <FaUserFriends></FaUserFriends>
-                    <span>Users</span>
-                  </p>
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to="/dashboard/allbuyers">
+                    <p className="flex items-center gap-1">
+                      <FaUsers></FaUsers>
+                      <span>All Buyers</span>
+                    </p>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/allsellers">
+                    <p className="flex items-center gap-1">
+                      <FaUserShield></FaUserShield>
+                      <span>All Sellers</span>
+                    </p>
+                  </Link>
+                </li>
+              </>
             ) : isBuyer ? (
               <li>
                 <Link to="/dashboard">

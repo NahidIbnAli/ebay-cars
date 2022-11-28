@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import toast from "react-hot-toast";
-import SmallSpinner from "../../../components/SmallSpinner";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { GoVerified } from "react-icons/go";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import swal from "sweetalert";
+import SmallSpinner from "../../../components/SmallSpinner";
 
-const AllUsers = () => {
+const AllSellers = () => {
   const {
-    data: users = [],
+    data: sellers = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["sellers"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users", {
+      const res = await fetch("http://localhost:5000/users?role=Seller", {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -28,7 +28,6 @@ const AllUsers = () => {
     return <SmallSpinner></SmallSpinner>;
   }
 
-  // make admin handler
   const handleMakeAdmin = (id) => {
     swal({
       title: "Are you sure?",
@@ -105,7 +104,7 @@ const AllUsers = () => {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold mb-6">All Users</h2>
+      <h2 className="text-3xl font-bold mb-6">All Sellers</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
@@ -120,28 +119,20 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
-              <tr key={user._id} className="font-medium">
+            {sellers.map((seller, index) => (
+              <tr key={seller._id} className="font-medium">
                 <th className="text-gray-400">{++index}</th>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
+                <td>{seller.name}</td>
+                <td>{seller.email}</td>
                 <td>
-                  <div
-                    className={`badge ${
-                      user.role === "Buyer"
-                        ? "badge-warning"
-                        : user.role === "Seller"
-                        ? "badge-success"
-                        : "badge-neutral"
-                    } text-white`}
-                  >
-                    {user.role}
+                  <div className={`badge badge-success text-white`}>
+                    {seller.role}
                   </div>
                 </td>
                 <td>
-                  {user?.role !== "Admin" && (
+                  {seller?.role !== "Admin" && (
                     <button
-                      onClick={() => handleMakeAdmin(user._id)}
+                      onClick={() => handleMakeAdmin(seller._id)}
                       className="btn btn-sm btn-secondary text-white normal-case"
                     >
                       Make Admin
@@ -149,14 +140,14 @@ const AllUsers = () => {
                   )}
                 </td>
                 <td>
-                  {user?.verified ? (
+                  {seller?.verified ? (
                     <div className="badge badge-lg">
                       <span className="mr-1">Verified</span>{" "}
                       <GoVerified></GoVerified>
                     </div>
                   ) : (
                     <button
-                      onClick={() => handleVerifyUser(user._id, user.name)}
+                      onClick={() => handleVerifyUser(seller._id, seller.name)}
                       className="btn btn-sm btn-info text-white normal-case"
                     >
                       Verify Now
@@ -165,7 +156,7 @@ const AllUsers = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => handleRemoveUser(user._id, user.name)}
+                    onClick={() => handleRemoveUser(seller._id, seller.name)}
                     className="btn btn-sm btn-error text-error bg-transparent hover:text-white normal-case"
                   >
                     <RiDeleteBin6Line></RiDeleteBin6Line>
@@ -181,4 +172,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default AllSellers;
