@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { GoVerified } from "react-icons/go";
 import { IoLocationSharp } from "react-icons/io5";
 
 const Product = ({ product, setProduct }) => {
+  const [isVerified, setIsVerified] = useState(false);
   const {
     name,
     image,
@@ -13,7 +14,17 @@ const Product = ({ product, setProduct }) => {
     date,
     yearsOfUse,
     sellerName,
+    email,
   } = product;
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/verify/${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setIsVerified(data.isVerified);
+      })
+      .catch((error) => console.error(error));
+  }, [email]);
 
   return (
     <div className="card bg-base-100 border">
@@ -46,7 +57,7 @@ const Product = ({ product, setProduct }) => {
         <div className="flex justify-between text-gray-600">
           <p className="text-gray-600 flex items-center gap-1">
             <AiOutlineUser></AiOutlineUser> <span>{sellerName}</span>
-            <GoVerified className="text-info"></GoVerified>
+            {isVerified && <GoVerified className="text-info"></GoVerified>}
           </p>
           <p>{date}</p>
         </div>
