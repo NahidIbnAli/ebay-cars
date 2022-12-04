@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import SmallSpinner from "../../../components/SmallSpinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import PaymentModal from "../PaymentModal/PaymentModal";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
@@ -39,9 +40,8 @@ const MyOrders = () => {
           <thead>
             <tr>
               <th></th>
-              <th className="text-base normal-case">Name</th>
-              <th className="text-base normal-case">Email</th>
               <th className="text-base normal-case">Product</th>
+              <th className="text-base normal-case">Name</th>
               <th className="text-base normal-case">Price</th>
               <th className="text-base normal-case">Payment</th>
             </tr>
@@ -50,9 +50,10 @@ const MyOrders = () => {
             {bookings.map((booking, index) => (
               <tr key={booking._id} className="font-medium">
                 <th className="text-gray-400">{++index}</th>
-                <td>{booking.buyer}</td>
-                <td>{booking.email}</td>
-                <td>{booking.name}</td>
+                <td>
+                  <img className="w-20 rounded-lg" src={booking.image} alt="" />
+                </td>
+                <td>${booking.name}</td>
                 <td>${booking.price}</td>
                 <td>
                   {booking?.paid ? (
@@ -77,6 +78,9 @@ const MyOrders = () => {
           </tbody>
         </table>
       </div>
+      {booking && (
+        <PaymentModal booking={booking} refetch={refetch}></PaymentModal>
+      )}
     </div>
   );
 };

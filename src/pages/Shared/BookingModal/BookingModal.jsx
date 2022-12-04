@@ -5,7 +5,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 
 const BookingModal = ({ product, setProduct, refetch }) => {
   const { user } = useContext(AuthContext);
-  const { name, resalePrice } = product;
+  const { _id, name, resalePrice, image } = product;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,11 +16,13 @@ const BookingModal = ({ product, setProduct, refetch }) => {
     const location = form.location.value;
     const booking = {
       name,
+      image,
       price: resalePrice,
       buyer,
       email,
       phone,
       location,
+      productId: _id,
     };
     fetch("https://ebay-cars-server.vercel.app/bookings", {
       method: "POST",
