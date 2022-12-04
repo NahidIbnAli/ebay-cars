@@ -31,7 +31,5 @@
 
 ### `Website Link :` [https://ebay-cars.web.app/](https://ebay-cars.web.app/)
 
-<hr/>
-
-adminEmail: <ebay@cars.com>
-adminPassword: <eBay@cars7>
+<!-- adminEmail: ebay@cars.com
+adminPassword: eBay@cars7 -->
