@@ -1,0 +1,25 @@
+.testimonials .swiper-pagination span {
+  height: 10px;
+  width: 10px;
+  background: #fff;
+  border: 2px solid #ed5217;
+  margin: 0 5px;
+}
+.testimonials .swiper-pagination .swiper-pagination-bullet-active {
+  background: #eb6b47;
+  height: 12px;
+  width: 12px;
+  margin-bottom: -1px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #eb6b47;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 0 !important;
+}

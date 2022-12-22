@@ -3,7 +3,7 @@ import React from "react";
 const Testimonial = ({ testimonial }) => {
   const { name, avatar, location, review } = testimonial;
   return (
-    <div className="card bg-base-100 shadow-lg">
+    <div className="card bg-base-100 shadow-lg mb-5">
       <div className="card-body text-center gap-1">
         <div className="avatar justify-center">
           <div className="w-20 mask mask-squircle">
