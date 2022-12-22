@@ -28,7 +28,7 @@ const Testimonials = () => {
   }
 
   return (
-    <div className="pb-10 pt-16 px-5">
+    <div className="py-10 px-5">
       <div className="container mx-auto">
         <h2 className="text-4xl font-bold pb-10 text-center">
           What People Says

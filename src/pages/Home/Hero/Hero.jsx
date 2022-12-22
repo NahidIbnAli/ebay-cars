@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -15,7 +16,9 @@ const Hero = () => {
           <p className="mb-8 text-xl">
             Then, build your deal to fit your needs.
           </p>
-          <button className="btn btn-primary text-white">Shop Used</button>
+          <Link to="/cars">
+            <button className="btn btn-primary text-white">Shop Used</button>
+          </Link>
         </div>
       </div>
     </div>
